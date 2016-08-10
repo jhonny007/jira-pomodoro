@@ -1,0 +1,60 @@
+{
+    "key": "jira-hackathon-pomodoro",
+    "name": "Pomodoro",
+    "description": "Use Pomodoros in your issues for more fun while getting things done.",
+    "vendor": {
+        "name": "Christian Gruber",
+        "url": "https://www.javadent.com/pomodoro"
+    },
+    "baseUrl": "{{localBaseUrl}}",
+    "links": {
+        "self": "{{localBaseUrl}}/atlassian-connect.json",
+        "homepage": "{{localBaseUrl}}/atlassian-connect.json"
+    },
+    "authentication": {
+        "type": "jwt"
+    },
+    "lifecycle": {
+        // atlassian-connect-express expects this route to be configured to manage the installation handshake
+        "installed": "/installed"
+    },
+    "scopes": [
+        "READ"
+    ],
+    "modules": {
+        "generalPages": [
+
+            // JIRA - Add a Hello World menu item to the navigation bar
+            {
+                "key": "my-activity",
+                "location": "system.top.navigation.bar",
+                "name": {
+                    "value": "Activity"
+                },
+                "url": "/activity",
+                "conditions": [{
+                    "condition": "user_is_logged_in"
+                }]
+            }],
+        "webPanels": [
+            {
+                "key": "my-configuration-page",
+                "url": "configuration?id={board.id}&type={board.type}",
+                "name": {
+                    "value": "My Configuration Page"
+                },
+                "location": "jira.agile.board.configuration",
+                "weight": 1
+            }],
+        "jiraIssueTabPanels": [
+            {
+                "key": "my-pomodoro-tab",
+                "url": "/pomodoro",
+                "name": {
+                    "value": "My Pomodoro Tab"
+                },
+                "weight": 100
+            }]
+
+    }
+}
